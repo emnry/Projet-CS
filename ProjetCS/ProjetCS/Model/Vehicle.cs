@@ -25,14 +25,13 @@ public class Vehicle
 
     [Required]
     public bool Sold { get; set; } = false;
+    
+    [Required]
+    public DateTime PurchaseDate { get; set; }
 
     [ForeignKey("customer_vehicle_fk")]
-    public Guid IdCustomer {get; set;}
-
-    public Customer? Customer { get; set; }
-
-    [NotMapped]
-    public float PriceIncludingTax => PriceExcludingTax * 1.2f;
+    public Guid? IdCustomer {get; set;}
     
+    public Customer? Customer { get; set; }
     
 }
