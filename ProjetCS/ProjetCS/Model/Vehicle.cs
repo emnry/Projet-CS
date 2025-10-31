@@ -26,6 +26,9 @@ public class Vehicle
     [Required]
     public bool Sold { get; set; } = false;
 
+    [ForeignKey("customer_vehicle_fk")]
+    public Guid IdCustomer {get; set;}
+
     public Customer? Customer { get; set; }
 
     [NotMapped]
