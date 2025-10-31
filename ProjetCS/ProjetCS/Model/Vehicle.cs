@@ -6,27 +6,30 @@ namespace ProjetCS.Model;
 public class Vehicle
 {
     [Key]
-    public Guid Id {get;set;} = new Guid();
-    
+    public Guid Id {get;set;}
+
     [Required]
-    private string firstname;
-    
+    public string Brand { get; set; }
+
     [Required]
-    private string lastname;
-    
+    public string Model { get; set; }
+
     [Required]
-    private DateTime birthdate;
-    
+    public int Year { get; set; }
+
     [Required]
-    private string phone_number;
-    
+    public float PriceExcludingTax { get; set; }
+
     [Required]
-    private string email;
-    
-    [ForeignKey("customer_vehicle_fk")]
-    public Guid IdCustomer {get; set;}
-    
-    public Customer? Customer {get; set;}
+    public string Color { get; set; }
+
+    [Required]
+    public bool Sold { get; set; } = false;
+
+    public Customer? Customer { get; set; }
+
+    [NotMapped]
+    public float PriceIncludingTax => PriceExcludingTax * 1.2f;
     
     
 }

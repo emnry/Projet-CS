@@ -5,27 +5,24 @@ namespace ProjetCS.Model;
 public class Customer
 {
     [Key]
-    public Guid Id {get;set;} = new Guid();
-    
+    public Guid Id { get; set; }
+
     [Required]
-    private string brand;
-    
+    public string Firstname { get; set; }
+
     [Required]
-    private string model;
-    
+    public string Lastname { get; set; }
+
     [Required]
-    private int year;
-    
+    public DateTime Birthdate { get; set; }
+
     [Required]
-    private float price_excluding_tax;
-    
+    public string PhoneNumber { get; set; }
+
     [Required]
-    private string color;
-    
-    [Required]
-    private bool sold = false;
-    
-    private List<Vehicle> vehicles;
+    public string Email { get; set; }
+
+    public List<Vehicle> Vehicles { get; set; } = new();
     
     
 }

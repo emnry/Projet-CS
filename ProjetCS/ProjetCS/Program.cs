@@ -12,6 +12,6 @@ var configuration = new ConfigurationBuilder()
 String pathCustomer = configuration.GetRequiredSection("CSVFiles")["CSV_Customer"];
 String pathVehicle = configuration.GetRequiredSection("CSVFiles")["CSV_Vehicle"];
 
-List<Vehicle> Vehicles = new List<Vehicle>();
-List<Customer> Customers = new List<Customer>();
+List<Customer> Vehicles = new List<Customer>();
+List<Vehicle> Customers = new List<Vehicle>();
 
