@@ -6,15 +6,25 @@ public class VehicleRepository : IVehicleRepository
 {
     private readonly DealerDbContext _dealerDbContext;
 
+    // DBContext
     public VehicleRepository(DealerDbContext dealerDbContext)
     {
         _dealerDbContext = dealerDbContext;
     }
 
+    // Get All
     public List<Vehicle> GetAllVehicle()
     {
         return _dealerDbContext.Vehicles.ToList();
     }
+
+    // Get Element by ID
+    public Vehicle? GetVehicleById(Guid vehicleId)
+    {
+        return _dealerDbContext.Vehicles.Find(vehicleId);
+    }
+    
+    // Get All Sold
 
     public List<Vehicle> GetSales()
     {
@@ -25,6 +35,7 @@ public class VehicleRepository : IVehicleRepository
             .ToList();
     }
 
+    // Add new Sale (link between Vehicle and Customer)
     public bool AddSale(Guid vehicleId, Guid customerId)
     {
         var vehicle = _dealerDbContext.Vehicles.Where(vehicle => vehicle.Id == vehicleId).FirstOrDefault();
@@ -47,6 +58,7 @@ public class VehicleRepository : IVehicleRepository
         return true;
     }
 
+    // Add new Vehicle
     public bool CreateVehicle(Vehicle vehicle)
     {
         _dealerDbContext.Vehicles.Add(vehicle);
