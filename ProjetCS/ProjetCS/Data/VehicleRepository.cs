@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ProjetCS.Model;
 namespace ProjetCS.Data.InterfaceRepository;
 
@@ -19,6 +20,7 @@ public class VehicleRepository : IVehicleRepository
     {
         return _dealerDbContext.Vehicles
             .Where(vehicle => vehicle.Sold == true)
+            .Include(vehicle => vehicle.Customer)
             .OrderBy(vehicle => vehicle.PurchaseDate)
             .ToList();
     }

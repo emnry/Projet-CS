@@ -12,7 +12,7 @@ using ProjetCS.Data.InterfaceRepository;
 namespace ProjetCS.Migrations
 {
     [DbContext(typeof(DealerDbContext))]
-    [Migration("20251031140617_InitialCreate")]
+    [Migration("20251106175054_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -79,7 +79,7 @@ namespace ProjetCS.Migrations
                     b.Property<float>("PriceExcludingTax")
                         .HasColumnType("real");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<DateTime?>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Sold")

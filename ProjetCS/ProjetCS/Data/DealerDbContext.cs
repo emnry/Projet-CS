@@ -35,6 +35,7 @@ public class DealerDbContext : DbContext
         var projectRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
         
         var configuration = new ConfigurationBuilder()
+            
             .SetBasePath(projectRoot)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
@@ -42,6 +43,7 @@ public class DealerDbContext : DbContext
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+
         }
     }
 }

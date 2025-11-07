@@ -38,7 +38,7 @@ namespace ProjetCS.Migrations
                     PriceExcludingTax = table.Column<float>(type: "real", nullable: false),
                     Color = table.Column<string>(type: "text", nullable: false),
                     Sold = table.Column<bool>(type: "boolean", nullable: false),
-                    PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IdCustomer = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>

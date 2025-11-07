@@ -76,7 +76,7 @@ namespace ProjetCS.Migrations
                     b.Property<float>("PriceExcludingTax")
                         .HasColumnType("real");
 
-                    b.Property<DateTime>("PurchaseDate")
+                    b.Property<DateTime?>("PurchaseDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Sold")
