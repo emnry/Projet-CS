@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.EntityFrameworkCore;
 using ProjetCS.Model;
 namespace ProjetCS.Data.InterfaceRepository;
@@ -38,12 +39,12 @@ public class VehicleRepository : IVehicleRepository
     // Add new Sale (link between Vehicle and Customer)
     public bool AddSale(Guid vehicleId, Guid customerId)
     {
-        var vehicle = _dealerDbContext.Vehicles.Where(vehicle => vehicle.Id == vehicleId).FirstOrDefault();
+        Vehicle vehicle = _dealerDbContext.Vehicles.Where(vehicle => vehicle.Id == vehicleId).FirstOrDefault();
 
         if (vehicle != null)
         {
             vehicle.Sold = true;
-            vehicle.PurchaseDate = DateTime.Now;
+            vehicle.PurchaseDate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc); // date actuelle utc
             vehicle.IdCustomer = customerId;
 
             _dealerDbContext.SaveChanges();
@@ -59,10 +60,14 @@ public class VehicleRepository : IVehicleRepository
     }
 
     // Add new Vehicle
-    public bool CreateVehicle(Vehicle vehicle)
+    public Vehicle AddVehicle(Vehicle vehicle, bool save )
     {
         _dealerDbContext.Vehicles.Add(vehicle);
-        _dealerDbContext.SaveChanges();
-        return true;
+        
+        if(save){
+            _dealerDbContext.SaveChanges();
+        }
+
+        return vehicle;
     }
 }

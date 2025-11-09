@@ -20,6 +20,15 @@ public class CustomerRepository : ICustomerRepository
         return  _dealerDbContext.Customers.ToList(); 
     }
     
+    // Get Element By email
+    
+    
+    public Customer? GetCustomerByEmail(string email)
+    {
+        return _dealerDbContext.Customers
+            .FirstOrDefault(c => c.Email == email);
+    }
+    
     // Get Element by ID
     public Customer? GetCustomerById(Guid customerId)
     {
@@ -28,10 +37,33 @@ public class CustomerRepository : ICustomerRepository
     
     // Add new Customer
 
-    public bool CreateCustomer(Customer customer)
+    public Customer AddCustomer(string firstname, string lastname, DateTime birthdate, string email, string phone, bool save)
     {
+        // Verifier si un client à le meme email 
+        var existingCustomer = _dealerDbContext.Customers
+            .FirstOrDefault(c => c.Email == email);
+        if (existingCustomer != null)
+        {
+            throw new InvalidOperationException("An other customer already owns this email"); // Erreur email --> client deja existant
+        }
+
+        // Créer le nouveau client
+        Customer customer = new Customer
+        {
+            Firstname = firstname,
+            Lastname = lastname,
+            Birthdate = DateTime.SpecifyKind(birthdate, DateTimeKind.Utc), // On force UTC sinon erreur avec PostgreSQL
+            Email = email,
+            PhoneNumber = phone
+        };
+
+        // Ajouter le client à la base
         _dealerDbContext.Customers.Add(customer);
-        _dealerDbContext.SaveChanges();
-        return true;
+        
+        // Ne pas enregistrer par defaut 
+        if(save){_dealerDbContext.SaveChanges();}
+        
+
+        return customer;
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iCFDWU05Rvg=",
+  "dgSpecHash": "dMm/XO1xzKY=",
   "success": true,
   "projectFilePath": "C:\\Users\\Ethan\\Documents\\GitHub\\Projet-CS\\ProjetCS\\ProjetCS\\ProjetCS.csproj",
   "expectedPackageFiles": [
@@ -53,8 +53,15 @@
     "C:\\Users\\Ethan\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\9.0.4\\microsoft.extensions.options.configurationextensions.9.0.4.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.4\\microsoft.extensions.primitives.9.0.4.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
+    "C:\\Users\\Ethan\\.nuget\\packages\\namotion.reflection\\3.4.2\\namotion.reflection.3.4.2.nupkg.sha512",
+    "C:\\Users\\Ethan\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Ethan\\.nuget\\packages\\njsonschema\\11.4.0\\njsonschema.11.4.0.nupkg.sha512",
+    "C:\\Users\\Ethan\\.nuget\\packages\\njsonschema.annotations\\11.4.0\\njsonschema.annotations.11.4.0.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\npgsql\\9.0.4\\npgsql.9.0.4.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\9.0.4\\npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
+    "C:\\Users\\Ethan\\.nuget\\packages\\opencli.sources\\0.5.0\\opencli.sources.0.5.0.nupkg.sha512",
+    "C:\\Users\\Ethan\\.nuget\\packages\\spectre.console\\0.53.0\\spectre.console.0.53.0.nupkg.sha512",
+    "C:\\Users\\Ethan\\.nuget\\packages\\spectre.console.cli\\0.53.0\\spectre.console.cli.0.53.0.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.10\\sqlitepclraw.bundle_e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\sqlitepclraw.core\\2.1.10\\sqlitepclraw.core.2.1.10.nupkg.sha512",
     "C:\\Users\\Ethan\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.10\\sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512",
