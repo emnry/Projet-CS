@@ -74,27 +74,31 @@ AnsiConsole.Write(
         .Centered()
 );
 
-// Couleur des valeurs dans la colonne "Color" de la table vehicle
-Dictionary<string, string> colorTraduction = new()
+
+
+string GetSpectreColor(string color)
 {
-    { "Noir", "black" },
-    { "Blanc", "white" },
-    { "Rouge", "red" },
-    { "Vert", "green" },
-    { "Bleu", "blue" },
-    { "Jaune", "yellow" },
-    { "Orange", "orange1" },
-    { "Gris", "grey" },
-    { "Rose", "pink1" },
-    { "Violet", "purple" },
-    { "Cyan", "cyan" },
-    { "Magenta", "magenta" },
-    { "Turquoise", "turquoise4" },
-    { "Beige", "tan" },
-    { "Ivoire", "tan" },
-    { "Or", "gold1" },
-    { "Argent", "silver" }
-};
+    // Couleur des valeurs dans la colonne "Color" de la table vehicle
+    Dictionary<string, string> colorTraduction = new()
+    {
+        { "orange", "orange1" },
+        { "pink", "pink1" },
+        { "turquoise", "turquoise4" },
+        { "beige", "tan" },
+        { "ivory", "tan" },
+        { "gold", "gold1" },
+    };
+
+    HashSet<string> spectreColors = new()
+    {
+        "black", "white", "red", "green", "blue", "yellow", "grey", "pink", "purple", "cyan", "magenta", "tan", "gold1", "silver", "orange1", "turquoise4"
+    };
+
+    string inputColor = color.ToLower();
+    return colorTraduction.ContainsKey(inputColor)
+        ? colorTraduction[inputColor]
+        : (spectreColors.Contains(inputColor) ? inputColor : "white");
+}
 
 var context = scope.ServiceProvider.GetRequiredService<DealerDbContext>();
 
@@ -290,9 +294,8 @@ while (running)
             {
                 String line = lines[i];
                 var fields = line.Split('%');
-
-                // Nettoyer les espaces si jamais il y en as dans les données
-                fields[i] = fields[i].Trim();
+                
+               
                 // Parser
                 DateTime date = DateTime.ParseExact(fields[2], "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 // Vers UTC pour PostgresSQL
@@ -317,9 +320,7 @@ while (running)
             {
                 String line = lines[i];
                 var fields = line.Split('/');
-
-                // Nettoyer les espaces si jamais il y en as dans les données
-                fields[i] = fields[i].Trim();
+                
 
                 vehicleElement = new Vehicle
                 {
@@ -377,10 +378,10 @@ while (running)
 
             foreach (Vehicle vehicle in vehicleList)
             {
-                // Verification que la couleur est dans le dictionnaire sinon blanc pour pas d'erreur
-                string couleurSpectre = colorTraduction.ContainsKey(vehicle.Color)
-                    ? colorTraduction[vehicle.Color]
-                    : "grey";
+                // Appel de la fonction de vérification de la couleur
+                string couleurSpectre = GetSpectreColor(vehicle.Color);
+
+
 
 
                 table.AddRow(
@@ -459,10 +460,8 @@ while (running)
 
             foreach (Vehicle vehicle in vehicleList)
             {
-                // Verification que la couleur est dans le dictionnaire sinon blanc pour pas d'erreur
-                string couleurSpectre = colorTraduction.ContainsKey(vehicle.Color)
-                    ? colorTraduction[vehicle.Color]
-                    : "white";
+                // Appel de la fonction de vérification de la couleur
+                string couleurSpectre = GetSpectreColor(vehicle.Color);
 
 
                 table.AddRow(
