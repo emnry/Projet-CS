@@ -108,7 +108,7 @@ var context = scope.ServiceProvider.GetRequiredService<DealerDbContext>();
 #endregion
 
 #region Fonctions
-
+// Boucle jusqu'a que linput soit non vide
 string InputValidString(string message, string valueName)
 {
     string valueString;
@@ -561,8 +561,10 @@ while (running)
             }
             
             bool sold = vehicleRepository.AddSale(vehicleElement.Id, customerElement.Id);
+            // Verification que le véhicule n'est pas déjà vendu
             if (sold == false)
             {
+                // Si vendu erreur et n'enregistre pas la nouvelle vente
                 AnsiConsole.MarkupLine("[red]Operation failed, vehicle is already sold ![/]");
                 break;
             }
@@ -585,6 +587,7 @@ while (running)
             table.AddRow("");
             table.AddRow("Purchase Date", $"{vehicleElement.PurchaseDate:yyyy-MM-dd HH:mm:ss}");
             
+            // Affichage de la table
             AnsiConsole.Write(table);
             
             break;
@@ -611,7 +614,7 @@ while (running)
                 AnsiConsole.MarkupLine("[red]Operation cancelled by user[/]");
                 break;
             }
-
+            // Verifie que format ID correct
             if (!Guid.TryParse(inputCustomerId, out Guid customerId))
             {
                 AnsiConsole.MarkupLine("[red]Invalid GUID format. Try again.[/]");
@@ -641,7 +644,7 @@ while (running)
                 customerElement.Email,
                 customerElement.PhoneNumber
             );
-
+            // Affichage de la table
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Customer found and displayed![/]");
             break;
@@ -721,7 +724,7 @@ while (running)
                 break;
             }
 
-            vehicleList = vehicleRepository.GetVehiclesByCustomerId(idcustomer); // Utilise ta fonction déjà écrite
+            vehicleList = vehicleRepository.GetVehiclesByCustomerId(idcustomer); 
             if (vehicleList == null || vehicleList.Count == 0)
             {
                 AnsiConsole.MarkupLine("[red]No vehicles found for this customer.[/]");
@@ -749,7 +752,7 @@ while (running)
                     vehicle.PurchaseDate?.ToString("yyyy-MM-dd") ?? ""
                 );
             }
-
+            // Affichage de la table
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Vehicles for this customer found and displayed![/]");
             break;
@@ -787,7 +790,7 @@ while (running)
                 customerElement.Email,
                 customerElement.PhoneNumber
             );
-
+            // Affichage de la table
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Customer found and displayed![/]");
             break;  
@@ -795,6 +798,7 @@ while (running)
 
         #region Close the tool
         case var s when s.Contains("Close the tool"):
+            // Fin de la boucle 
             running = false;
             Console.WriteLine("Tool closed.");
             break;
