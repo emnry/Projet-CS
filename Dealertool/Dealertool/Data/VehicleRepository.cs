@@ -47,7 +47,7 @@ public class VehicleRepository : IVehicleRepository
             return false;
         }
 
-        // Vérifie que le véhicule n'est pas déjà vendu
+        // Is looking if the vehicle is already sold
         if (vehicle.Sold)
         {
             return false;
