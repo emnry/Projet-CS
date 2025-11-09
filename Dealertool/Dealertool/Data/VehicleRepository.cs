@@ -1,6 +1,7 @@
 using Dealertool.Data.InterfaceRepository;
 using Dealertool.Model;
 using Microsoft.EntityFrameworkCore;
+using Spectre.Console;
 
 namespace Dealertool.Data;
 
@@ -41,22 +42,22 @@ public class VehicleRepository : IVehicleRepository
     public bool AddSale(Guid vehicleId, Guid customerId)
     {
         Vehicle vehicle = _dealerDbContext.Vehicles.Where(vehicle => vehicle.Id == vehicleId).FirstOrDefault();
-
-        if (vehicle != null)
+        if (vehicle == null)
         {
-            vehicle.Sold = true;
-            vehicle.PurchaseDate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc); // date actuelle utc
-            vehicle.IdCustomer = customerId;
-
-            _dealerDbContext.SaveChanges();
-        }
-        else
-        {
-            Console.WriteLine($"Vehicle with ID {vehicleId} not found.");
-
             return false;
         }
 
+        // Vérifie que le véhicule n'est pas déjà vendu
+        if (vehicle.Sold)
+        {
+            return false;
+        }
+
+        vehicle.Sold = true;
+        vehicle.PurchaseDate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+        vehicle.IdCustomer = customerId;
+
+        _dealerDbContext.SaveChanges();
         return true;
     }
 

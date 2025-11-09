@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dealertool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+196f5ea861aa922a918e1f763b997977394a744b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d02fa7346fdc18d1427db94c59ed79508da914c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dealertool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dealertool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

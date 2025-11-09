@@ -1,6 +1,7 @@
 #region Dependances
 
 using System.Globalization;
+using System.Reflection;
 using Dealertool.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,8 +29,9 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 // Definition des chemins vers les CSVs
-String pathCustomer = configuration.GetRequiredSection("CSVFiles")["CSV_Customer"];
-String pathVehicle = configuration.GetRequiredSection("CSVFiles")["CSV_Vehicle"];
+string exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+string pathCustomer = Path.Combine(exeDir, "..", "..", "..", "Data", "CSV", "clients.csv");
+string pathVehicle  = Path.Combine(exeDir, "..", "..", "..", "Data", "CSV", "voitures.csv");
 
 // Toggle de boucle principale 
 bool running = true;
@@ -494,6 +496,7 @@ while (running)
 
         #endregion
 
+        #region Make a vehicle purchase
         case var s when s.Contains("Make a vehicle purchase"):
             var confirmation = AnsiConsole.Prompt(
                 new TextPrompt<bool>("Does the client have an account ?")
@@ -556,10 +559,14 @@ while (running)
             {
                 break;
             }
-
-            vehicleRepository.AddSale(vehicleElement.Id, customerElement.Id);
+            
+            bool sold = vehicleRepository.AddSale(vehicleElement.Id, customerElement.Id);
+            if (sold == false)
+            {
+                AnsiConsole.MarkupLine("[red]Operation failed, vehicle is already sold ![/]");
+                break;
+            }
             AnsiConsole.MarkupLine("[green]Purchase successfully saved ![/]");
-
             columns = new List<string>
             {
                 "Field", "Detail"
@@ -575,21 +582,27 @@ while (running)
             table.AddRow("Identifier", vehicleElement.Id.ToString());
             table.AddRow("Net Price", $"{vehicleElement.PriceExcludingTax:0.00} €");
             table.AddRow("Gross Price", $"{vehicleElement.PriceExcludingTax * 1.2:0.00} €");
-            table.AddRow("Price (Gross, TTC)", $"{vehicleElement.PriceExcludingTax * 1.2:0.00} €");
             table.AddRow("");
             table.AddRow("Purchase Date", $"{vehicleElement.PurchaseDate:yyyy-MM-dd HH:mm:ss}");
             
             AnsiConsole.Write(table);
             
             break;
+        #endregion
+        
+        #region Add a new customer
         case var s when s.Contains("Add a new customer"):
             customerElement = AddNewCustomer();
             break;
-
+        #endregion
+        
+        #region Add a new vehicle
         case var s when s.Contains("Add a new vehicle"):
             vehicleElement = AddNewVehicle();
             break;
+        #endregion
         
+        #region Find a customer by his identifier
         case var s when s.Contains("Find a customer by his identifier"):
             AnsiConsole.MarkupLine("[bold]Enter the customer identifier (or type 'exit' to cancel): [/]");
             string inputCustomerId = Console.ReadLine() ?? "";
@@ -632,8 +645,9 @@ while (running)
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Customer found and displayed![/]");
             break;
+        #endregion
 
-
+        #region Find a vehicle by his identifier
         case var s when s.Contains("Find a vehicle by his identifier"):
             AnsiConsole.MarkupLine("[bold]Enter the vehicle identifier (or type 'exit' to cancel): [/]");
             string inputVehId = Console.ReadLine() ?? "";
@@ -681,8 +695,9 @@ while (running)
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Vehicle found and displayed![/]");
             break;
+        #endregion
 
-
+        #region Find customer's vehicles
         case var s when s.Contains("Find customer's vehicles"):
             AnsiConsole.MarkupLine("[bold]Enter the customer identifier (or type 'exit' to cancel): [/]");
             string inputId = Console.ReadLine() ?? "";
@@ -738,7 +753,9 @@ while (running)
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Vehicles for this customer found and displayed![/]");
             break;
+        #endregion
         
+        #region Find a customer by his email
         case var s when s.Contains("Find a customer by his email"):
             string inputEmail = InputValidString("Enter the customer email (or type 'exit' to cancel): ", "Email");
             if (inputEmail.ToLower() == "exit")
@@ -773,14 +790,17 @@ while (running)
 
             AnsiConsole.Write(table);
             AnsiConsole.MarkupLine("[green]Customer found and displayed![/]");
-            break;
+            break;  
+        #endregion
 
-
+        #region Close the tool
         case var s when s.Contains("Close the tool"):
             running = false;
             Console.WriteLine("Tool closed.");
             break;
+        #endregion
     }
+    
 
     #endregion
 }
